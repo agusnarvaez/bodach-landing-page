@@ -1,4 +1,7 @@
-# BodachLandingPage
+![Imagen de WhatsApp 2023-10-03 a las 11 28 45_998db9bc](https://github.com/agusnarvaez/bodach-landing-page/assets/71536606/b5d15ec7-fb9f-46f6-bed2-07146376d4cf)
+
+
+# Bodach Landing Page
 
 [![Build](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml/badge.svg)](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml)
 
