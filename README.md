@@ -1,5 +1,7 @@
 # BodachLandingPage
 
+[![Build](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml/badge.svg)](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml)
+
 ![Coverage](./badges/bodach-landing-page/coverage.svg)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
