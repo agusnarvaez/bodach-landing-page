@@ -1,5 +1,6 @@
 //  Módulos angular
 import { NgModule } from '@angular/core'
+import { AppComponent } from './app.component'
 /* import { AppRoutingModule } from './app-routing.module' */
 
 // Componentes
@@ -9,9 +10,9 @@ import { NgModule } from '@angular/core'
 
 @NgModule({
   declarations: [
-
   ],
   imports: [
+    AppComponent
     /* FormsModule,
     BrowserModule,
     AppRoutingModule,
