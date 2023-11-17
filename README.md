@@ -5,7 +5,7 @@
 
 [![Build](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml/badge.svg)](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml)
 
-![Coverage](./badges/bodach-landing-page/coverage.svg)
+<!-- ![Coverage](./badges/bodach-landing-page/coverage.svg) -->
 
 Este proyecto será la landing page de Bodach, una empresa de implantes médicos, la cual se encuentra en desarrollo.
 

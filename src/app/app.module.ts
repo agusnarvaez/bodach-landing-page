@@ -1,18 +1,26 @@
+//  Módulos angular
 import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
+/* import { AppRoutingModule } from './app-routing.module' */
 
-import { AppRoutingModule } from './app-routing.module'
-import { AppComponent } from './app.component'
+// Componentes
+
+// Páginas
+
 
 @NgModule({
   declarations: [
-    AppComponent
+
   ],
   imports: [
+    /* FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterOutlet,
+    RouterModule,
+    HttpClientModule,
+    NgOptimizedImage */
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
-export class AppModule { }
+export class AppModule {}
