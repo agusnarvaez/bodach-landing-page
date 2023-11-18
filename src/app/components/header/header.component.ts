@@ -19,8 +19,5 @@ export class HeaderComponent {
 
   constructor() { }
 
-  toggleHeader() {
-    console.log('toggleHeader()',this.showHeader)
-    this.showHeader = !this.showHeader
-  }
+  toggleHeader() { this.showHeader = !this.showHeader }
 }
