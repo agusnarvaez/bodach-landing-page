@@ -1,11 +1,27 @@
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import './app.module'
+import { ActivatedRoute } from '@angular/router'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        AppComponent,
+
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              data: {
+                title: 'bodach-landing-page'
+              }
+            }
+          }
+        }
+      ]
     }).compileComponents()
   })
 
