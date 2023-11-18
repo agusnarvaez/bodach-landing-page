@@ -1,1 +1,15 @@
-<p>header works!</p>
+<header>
+    <section>
+        <img src="../../../assets/logos/logo-bodach.png" alt="logo-bodach" />
+        <div class="header-button" [ngClass]="showHeader ? 'show' : ''" (click)="toggleHeader()" >
+            <div></div>
+        </div>
+    </section>
+    <nav [ngClass]="showHeader ? 'show' : ''">
+        <ul>
+            <li (click)="toggleHeader()" ><a [routerLink]="['']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
+            <li (click)="toggleHeader()" ><a [routerLink]="['catalogo']" [routerLinkActive]="['active']">Catálogo</a></li>
+            <li (click)="toggleHeader()" ><a [routerLink]="['contacto']" [routerLinkActive]="['active']">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
