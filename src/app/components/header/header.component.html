@@ -1,10 +1,8 @@
 <header>
-    <section>
-        <img src="../../../assets/logos/logo-bodach.png" alt="logo-bodach" />
-        <div class="header-button" [ngClass]="showHeader ? 'show' : ''" (click)="toggleHeader()" >
-            <div></div>
-        </div>
-    </section>
+    <img src="../../../assets/logos/logo-bodach.png" alt="logo-bodach" />
+    <div class="header-button" [ngClass]="showHeader ? 'show' : ''" (click)="toggleHeader()" >
+        <div></div>
+    </div>
     <nav [ngClass]="showHeader ? 'show' : ''">
         <ul>
             <li (click)="toggleHeader()" ><a [routerLink]="['']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
