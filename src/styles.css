@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #D88C2B;
+    --secondary-color: #D9D9D9;
+    --tertiary-color: #C4C4C4;
+    --dark-button-color: #212427;
+    --danger-color: #ff0000;
+    --success-color: #00ff00;
+    --warning-color: #ffff00;
+    --info-color: #0000ff;
+    --light-color: #FFF;
+    --primary-font: 'Montserrat', sans-serif;
+    --secondary-font: 'Raleway', sans-serif;
+    --primary-font-size: 1.6rem;
+    --secondary-font-size: 1.4rem;
+    --primary-border-radius: 1rem;
+    --secondary-border-radius: 0.5rem;
+    --primary-border: 0.2rem solid var(--primary-color);
+    --primary-border_lighter: 0.2rem solid var(--primary-color-lighter);
+    --primary-border_gray: 0.2rem solid #d3d3d3;
+    --secondary-border: 0.1rem solid var(--secondary-color);
+    --tertiary-border: 0.5rem;
+    --primary-padding: 1rem;
+    --secondary-padding: 0.5rem;
+    --primary-margin: 1rem;
+    --secondary-margin: 0.5rem;
+    --primary-shadow: 0.1rem 0.1rem 0.5rem black;
+    --secondary-shadow: 0.1rem 0.1rem 0.5rem var(--secondary-color);
+    --primary-transition: all 0.3s ease-in-out;
+    --ambar-color: #ac977b;
+    --icon-yellow-color: #efb810;
+}
+
+* {
+    font-family: var(--primary-font);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+    overflow-x: hidden;
+}
+
+body{
+    height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+main{
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--secondary-color);
+}
+
+app-root{
+    position: relative;
+}
