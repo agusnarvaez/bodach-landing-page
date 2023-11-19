@@ -7,20 +7,17 @@
     flex-direction: column;
     position: relative;
 }
-.introduction > div{
-    transition: all 1s ease-in-out;
+.introduction .introduction-text {
+    transition: max-height 0.3s linear;
 }
 
 
-.introduction h3{
-    width: 100%;
-    text-align: center;
+.introduction h3 {
+    /* Elimina la posición absoluta y usa margin para posicionar */
+    /* margin-top: 2rem; */
     position: absolute;
-    display: block;
-    top: -10rem;
-    left: 0;
-    z-index: 1;
-    font-weight: 400;
+    top:-100px;
+    transition: margin-top 0.3s linear; /* Anima el cambio de margin */
 }
 
 .down-arrow{
@@ -31,18 +28,39 @@
     height: 70px;
     z-index: 50;
     cursor: pointer;
-    transition: all 1s ease-in-out;
     transform: translateX(-50%) rotate(0deg);
     animation: bounce 2s infinite;
+    transition: transform 0.3s linear, top 0.3s linear; /* Incluye top en la transición */
 }
 
-.down-arrow.show{
+/* .down-arrow.show{
     animation: none;
     transform: translateX(-50%) rotate(180deg);
+} */
+
+/* Cuando se muestra el contenido, ajusta el top de h3 y la flecha */
+.introduction.show h3,
+.introduction.show .down-arrow {
+    top: calc(100% + 2rem); /* Desplaza hacia abajo basado en la altura del contenido */
 }
 .down-arrow:hover {
-    /* Combina la escala con las transformaciones existentes */
-    transform: translateX(-50%) rotate(0deg) scale(1.2);
+    transform: translateX(-50%) scale(1.2); /* Solo escala, no rotes aquí */
+}
+
+
+/*
+.introduction.show .down-arrow:hover {
+    transform: translateX(-50%) rotate(180deg) scale(1.2);
+} */
+
+.introduction.show .down-arrow.show {
+    animation: bounce-show 2s infinite;
+    position: relative;
+    transform: rotate(180deg) scale(1); /* Rotación incluida */
+    width: 100%;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s linear, top 0.3s linear;
 }
 
 @keyframes bounce {
@@ -58,18 +76,18 @@
 }
 @keyframes bounce-show {
     0%, 100% {
-        transform: translate(-50%, 0) rotate(180deg);
+        transform: translate(0%, 0) rotate(180deg);
     }
     50% {
-        transform: translate(-50%, 20px) rotate(180deg);
+        transform: translate(0%, -20px) rotate(180deg);
     }
 }
 
 .down-arrow::after,
 .down-arrow::before{
     content: '';
-    width: 40px;
-    height: 5px;
+    width: 20px;
+    height: 4px;
     background-color: var(--primary-color);
     position: absolute;
     bottom: 50%;
@@ -83,7 +101,7 @@
 }
 
 
-.introduction > div:last-child{
+.introduction .introduction-text{
     max-height: 0;
     overflow: hidden;
     display: flex;
@@ -91,24 +109,36 @@
     align-items: center;
     flex-direction: column;
     gap: 2rem;
-
 }
 
-.introduction > div.show:last-child{
+.introduction .introduction-text.show{
     max-height: 100vh;
-    transition: max-height 1s ease-in-out;
-    padding: 5% 0;
+    transition: all 0.3s linear;
+    padding: 2% 0;
 }
 
-.introduction > div:last-child p{
+.introduction .introduction-text p{
     width: 90%;
     text-align: center;
     font-size: 1.7rem;
 }
 
 @media (min-width: 530px) {
-    .introduction > div:last-child p{
+    .introduction .introduction-text p{
         width: 70%;
         font-size: 2rem;
+    }
+
+    .down-arrow::after,
+    .down-arrow::before{
+/*         content: ''; */
+        width: 40px;
+        height: 5px;
+/*         background-color: var(--primary-color);
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        border-radius: 1rem;
+        transform: translateX(-80%) rotate(45deg); */
     }
 }

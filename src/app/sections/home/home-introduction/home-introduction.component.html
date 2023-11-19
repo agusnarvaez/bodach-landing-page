@@ -1,12 +1,11 @@
-<section class="introduction">
+<section class="introduction" [ngClass]="show ? 'show' : ''">
     <!-- @if (show) {
         <h3>Conoce menos</h3>
     }else{
         <h3>Conoce más</h3>
     } -->
-    @if (!show) {  <h3>Conocé más</h3> }
-    <div class="down-arrow" [ngClass]="show ? 'show' : ''" (click)="toggleShow()"></div>
-    <div [ngClass]="show ? 'show' : ''">
+
+    <div class="introduction-text" [ngClass]="show ? 'show' : ''">
         <p>
             Somos una fábrica de implantes traumatológicos líder que destaca por su compromiso con la calidad e innovación en la fabricación, comercialización y distribución de productos.
         </p>
@@ -23,4 +22,6 @@
             Nuestro compromiso principal es brindar un completo apoyo al equipo quirúrgico, ofreciendo todo nuestro conocimiento y recursos a disposición.
         </p>
     </div>
+    @if (!show) {  <h3>Conocé más</h3> }
+    <div class="down-arrow" [ngClass]="show ? 'show' : ''" (click)="toggleShow()"></div>
 </section>
