@@ -59,3 +59,55 @@ main{
 app-root{
     position: relative;
 }
+
+p,
+span,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+address{
+    font-size: 2rem;
+}
+
+a{
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+@media (min-width: 530px) {
+
+    h1{
+        font-size: 3rem;
+    }
+
+    h2{
+        font-size: 2.3rem;
+    }
+
+    h3{
+        font-size: 2rem;
+    }
+
+    h4{
+        font-size: 1.5rem;
+    }
+
+    h5{
+        font-size: 1.3rem;
+    }
+
+    h6{
+        font-size: 1.1rem;
+    }
+}
+
+
