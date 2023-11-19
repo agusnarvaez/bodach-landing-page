@@ -1,30 +1,14 @@
-.products{
-    justify-content: space-between;
-    padding: 5%;
-    flex-direction: column;
-    gap: 3rem;
-    min-height: 50vh;
-}
 
-.products > div{
-    width: 100%;
-    height: 100%;
-}
+
 .products-introduction{
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .products h2{
-    font-size: 3rem;
-    line-height: 3.5rem;
     margin-bottom: 1rem;
-    font-weight: 600;
 }
-.products p{
-    font-size: 2rem;
-    line-height: 2.5rem;
-}
+
 .products .products-photo{
     display: flex;
     aspect-ratio: 1/1;
@@ -55,38 +39,25 @@
         .products > div{
             width: 45%;
         }
+        .products .products-photo{
+            /* height: 100%; */
+            aspect-ratio: 4/3;
+        }
         .products .products-introduction{
             justify-content: space-between;
             height: auto;
-        }
-        .products .products-introduction h2{
-            font-size: 5rem;
-            font-weight: 700;
-            display: block;
-
-        }
-        .products .products-introduction p{
-            font-size: 2.5rem;
-            display: block;
         }
 
 }
 
 @media (min-width: 950px) {
-    .products{
-        /* padding: 5% 10%; */
-    }
-
-    .products .products-introduction h2{
-        font-size: 6rem;
-        line-height: 6.5rem;
-        margin-bottom: 1rem;
-
-    }
-    .products .products-introduction p{
-        font-size: 2.8rem;
-        line-height: 3.5rem;
+    .info-section p{
         padding-right: 10%;
+    }
+
+    .products .products-photo{
+        width: 35%;
+        aspect-ratio: 3/2;
     }
 
 }
