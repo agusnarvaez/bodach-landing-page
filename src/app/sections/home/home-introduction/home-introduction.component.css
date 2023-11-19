@@ -1,0 +1,114 @@
+
+.introduction{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+.introduction > div{
+    transition: all 1s ease-in-out;
+}
+
+
+.introduction h3{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    display: block;
+    top: -10rem;
+    left: 0;
+    z-index: 1;
+    font-weight: 400;
+}
+
+.down-arrow{
+    position:absolute;
+    top: -80px;
+    left: 50%;
+    width: 100px;
+    height: 70px;
+    z-index: 50;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+    transform: translateX(-50%) rotate(0deg);
+    animation: bounce 2s infinite;
+}
+
+.down-arrow.show{
+    animation: none;
+    transform: translateX(-50%) rotate(180deg);
+}
+.down-arrow:hover {
+    /* Combina la escala con las transformaciones existentes */
+    transform: translateX(-50%) rotate(0deg) scale(1.2);
+}
+
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, 0);
+    }
+    50% {
+        transform: translate(-50%, 20px);
+    }
+    100% {
+        transform: translate(-50%, 0);
+    }
+}
+@keyframes bounce-show {
+    0%, 100% {
+        transform: translate(-50%, 0) rotate(180deg);
+    }
+    50% {
+        transform: translate(-50%, 20px) rotate(180deg);
+    }
+}
+
+.down-arrow::after,
+.down-arrow::before{
+    content: '';
+    width: 40px;
+    height: 5px;
+    background-color: var(--primary-color);
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    border-radius: 1rem;
+    transform: translateX(-80%) rotate(45deg);
+}
+
+.down-arrow::before{
+    transform: translateX(-20%) rotate(-45deg);
+}
+
+
+.introduction > div:last-child{
+    max-height: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+
+}
+
+.introduction > div.show:last-child{
+    max-height: 100vh;
+    transition: max-height 1s ease-in-out;
+    padding: 5% 0;
+}
+
+.introduction > div:last-child p{
+    width: 90%;
+    text-align: center;
+    font-size: 1.7rem;
+}
+
+@media (min-width: 530px) {
+    .introduction > div:last-child p{
+        width: 70%;
+        font-size: 2rem;
+    }
+}
