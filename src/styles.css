@@ -55,6 +55,13 @@ main{
     position: relative;
     background-color: var(--secondary-color);
 }
+main section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 app-root{
     position: relative;
