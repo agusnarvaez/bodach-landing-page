@@ -20,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http'
     BrowserModule,
     HttpClientModule,
     NgOptimizedImage,
-    RouterModule
+    RouterModule,
+    NgModule
     /* FormsModule,
     NgOptimizedImage */
   ],
