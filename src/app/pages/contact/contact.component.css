@@ -142,9 +142,15 @@ img{
     form .input-container,
     form .input-container label{
         background-color: var(--secondary-color);
-        font-size: 1.5rem;
+        font-size: 1.7rem;
+    }
+    form .input-container input,
+    form .input-container textarea,
+    form .input-container select{
+        font-size: 1.7rem;
     }
     form .input-container label{
         border: 1px solid var(--secondary-color);
+        top: -1.7rem;
     }
 }
