@@ -21,9 +21,8 @@ import { HttpClientModule } from '@angular/common/http'
     HttpClientModule,
     NgOptimizedImage,
     RouterModule,
-    NgModule
-    /* FormsModule,
-    NgOptimizedImage */
+    HttpClientModule
+    /* FormsModule */
   ],
   providers: [],
   bootstrap: []
