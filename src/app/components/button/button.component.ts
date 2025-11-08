@@ -5,9 +5,9 @@ import { RouterLink, RouterModule } from '@angular/router'
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [CommonModule,RouterLink,RouterModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  styleUrl: './button.component.css',
 })
 export class ButtonComponent {
   @Input() type: string = ''
@@ -15,10 +15,10 @@ export class ButtonComponent {
   @Input() text: string = ''
   @Input() icon: string = ''
 
-  isSecondary = ()=> this.type === 'secondary'
+  isSecondary = () => this.type === 'secondary'
 
-  buttonType = () => this.isSecondary() ? 'button' : 'submit'
-
+  buttonType = () =>
+    this.isSecondary() || this.type === 'button' ? 'button' : 'submit'
 
   isLink = () => this.link !== ''
 }

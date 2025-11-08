@@ -1,5 +1,16 @@
 <app-products-banner></app-products-banner>
 
-<app-products-filter></app-products-filter>
+<aside class="catalog__filters">
+  <app-products-filter (apply)="onApply()" />
+</aside>
 
-<app-products-card></app-products-card>
+<main class="catalog__grid">
+  <div class="loading" *ngIf="loading()">Cargando...</div>
+
+  <div class="grid" *ngIf="!loading()">
+    <app-products-card
+      *ngFor="let p of products(); trackBy: trackById"
+      [product]="p"
+    />
+  </div>
+</main>

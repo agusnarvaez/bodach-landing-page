@@ -1,0 +1,146 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: #fff;
+  border: 1px solid #e1d9d3;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.card__image {
+  display: block;
+  aspect-ratio: 4/3;
+  background: #f4f0ed;
+}
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.card__body {
+  padding: 0.8rem 0.9rem 1rem;
+}
+.card__title {
+  margin: 0;
+  font-size: 1rem;
+}
+.card__category {
+  margin: 0.2rem 0 0.4rem;
+  color: #8b7f77;
+  font-size: 0.9rem;
+}
+.card__desc {
+  margin: 0 0 0.8rem;
+  color: #6f645e;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  max-height: 3.7em;
+  overflow: hidden;
+}
+.btn {
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.btn--ghost {
+  background: #fff;
+  border: 1px solid #d0c6c0;
+  color: #6b5f57;
+  font-weight: 600;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  height: 100%;
+}
+.card:hover {
+  transform: scale(1.1);
+}
+.card:active {
+  transform: scale(0.95);
+}
+.thumb {
+  display: block;
+  aspect-ratio: 4/3;
+  position: relative;
+  background: #f6f3f1;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, #efeae6 25%, #f6f3f1 37%, #efeae6 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite;
+}
+.skeleton.hide {
+  display: none;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -400% 0;
+  }
+}
+
+.body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  justify-content: space-between;
+}
+.title {
+  font-size: 1.5rem;
+  line-height: 1.7rem;
+}
+.category {
+  color: var(--muted);
+  font-size: 1rem;
+  border: 0.3px solid var(--tertiary-color-darker);
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+.variants,
+.materials {
+  font-size: 1rem;
+  color: var(--muted);
+  flex-grow: 1;
+  list-style: none;
+  display: flex;
+  gap: 0.4rem;
+}
+.row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-weight: 600;
+  color: #6b5f57;
+  cursor: pointer;
+}
+.btn--ghost:hover {
+  border-color: #cdbfb7;
+}

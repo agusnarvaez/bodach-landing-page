@@ -1,0 +1,35 @@
+<article class="card">
+  <a class="thumb" [routerLink]="['/catalogo', product?.id]">
+    <div class="skeleton" [class.hide]="!loading"></div>
+    <img
+      [src]="photoUrl(product)"
+      [alt]="product?.title || 'Producto'"
+      (load)="onLoad()"
+    />
+  </a>
+
+  <div class="body">
+    <h4 class="title">{{ product?.title }}</h4>
+    <h3 class="category" *ngIf="product?.categoryTitle">
+      {{ product.categoryTitle }}
+    </h3>
+    <ul class="materials">
+      <li *ngFor="let material of product?.materials || []; let isLast = last">
+        {{ material }}
+        <!-- Agregar separador entre materiales -->
+        <ng-container *ngIf="!isLast"> | </ng-container>
+      </li>
+    </ul>
+    <p class="variants">
+      {{ variantsQty() }} variante{{ variantsQty() === 1 ? '' : 's' }}
+    </p>
+    <div class="row">
+      <app-button
+        text="Ver detalle"
+        class="btn btn--primary"
+        [routerLink]="['/catalogo', product?.id]"
+      >
+      </app-button>
+    </div>
+  </div>
+</article>

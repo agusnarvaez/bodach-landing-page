@@ -1,1 +1,80 @@
-<p>product-detail works!</p>
+<nav class="back">
+  <i class="fa fa-solid fa-chevron-left"></i>
+  <a routerLink="/catalogo">Volver a productos</a>
+</nav>
+
+<section class="hero" *ngIf="product() as p">
+  <div class="media">
+    <div class="tabs">
+      <!-- <button
+        [class.active]="activeTab() === 'img'"
+        (click)="activeTab.set('img')"
+      >
+        Imágenes
+      </button> -->
+      <!-- <button
+        [class.active]="activeTab() === 'video'"
+        (click)="activeTab.set('video')"
+      >
+        Video implementación
+      </button> -->
+      <!-- <button
+        [class.active]="activeTab() === '3d'"
+        (click)="activeTab.set('3d')"
+      >
+        Visión 3D
+      </button> -->
+    </div>
+
+    <div class="frame">
+      <img *ngIf="activeTab() === 'img'" [src]="photoUrl()" [alt]="p.title" />
+      <div class="placeholder" *ngIf="activeTab() !== 'img'">
+        Contenido no disponible
+      </div>
+    </div>
+  </div>
+
+  <section class="info">
+    <h1>{{ p.title }}</h1>
+    <h2>{{ p.categoryTitle }}</h2>
+    <p>{{ p.description }}</p>
+    <section class="variants">
+      <h3>Variantes disponibles</h3>
+      <ul>
+        @for (variant of p.variants; track variant.code) {
+          <li>{{ variant.title }}</li>
+        }
+      </ul>
+    </section>
+
+    <div class="cta">
+      <app-button
+        type="button"
+        text="Solicitar cotización"
+        icon="fa fa-solid fa-dollar-sign"
+        (click)="mailto()"
+      ></app-button>
+      <app-button
+        (click)="copyUrl()"
+        [icon]="!copying() ? 'fa fa-solid fa-copy' : 'fa fa-solid fa-check'"
+        type="secondary"
+        [text]="!copying() ? 'Copiar URL del producto' : 'Copiado'"
+      ></app-button>
+    </div>
+  </section>
+</section>
+
+<section class="suggested" *ngIf="suggested().length">
+  <h3>También podría interesarte</h3>
+  <div class="carousell">
+    <div class="inner">
+      @for (product of suggested(); track product._id) {
+        <app-products-card [product]="product" />
+      }
+    </div>
+  </div>
+  <app-button
+    text="Ver Todos los productos"
+    routerLink="/catalogo"
+  ></app-button>
+</section>
