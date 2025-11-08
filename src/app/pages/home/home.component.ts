@@ -26,10 +26,4 @@ import { ProductService } from '../../services/product/product.service'
 })
 export class HomeComponent {
   constructor(private productsService: ProductService) {}
-
-  ngOnInit(): void {
-    this.productsService.getAll().subscribe((products) => {
-      console.log('Productos en HomeComponent:', products)
-    })
-  }
 }

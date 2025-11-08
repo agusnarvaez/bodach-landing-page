@@ -33,7 +33,6 @@ export class ProductsComponent {
     this.productSrv.getAll().subscribe({
       next: (list) => this.products.set(list),
       complete: () => {
-        console.log(this.products())
         this.loading.set(false)
       },
     })

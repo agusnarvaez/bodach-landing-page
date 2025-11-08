@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core'
 import { Observable, catchError, map, throwError } from 'rxjs'
 import { environment } from '../../../../environment.prod'

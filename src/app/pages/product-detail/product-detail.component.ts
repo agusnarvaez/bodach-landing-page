@@ -27,7 +27,6 @@ export class ProductDetailComponent {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') as string
     this.productSrv.getById(id).subscribe((p) => {
-      console.log(p)
       this.product.set(p)
     })
     this.productSrv
