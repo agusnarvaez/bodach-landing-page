@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-items: stretch;
     overflow: hidden;
+    cursor: pointer;
 }
 
 
@@ -67,7 +68,7 @@
     }
     .faq-item p{
         font-size: 2.5rem;
-
+        line-height: 3rem;
     }
 
 }
@@ -75,7 +76,11 @@
 @media (min-width: 950px) {
     .faq-item div::after,
     .faq-item div::before{
-        width: 30%;
+        width: 20%;
+    }
+    .faq-item div::after,
+    .faq-item div::before{
+        height: 5px;
     }
     .faq-item{
         padding: 3rem 0;
@@ -87,7 +92,7 @@
     }
     .faq-item p{
         font-size: 3rem;
-        line-height: 3rem;
+        line-height: 3.5rem;
 
     }
     .faq-item.show p{

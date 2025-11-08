@@ -35,7 +35,7 @@ form .input-container{
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 1.3rem;
+    padding: 2.5rem 1.3rem;
     border: 1px solid var(--dark-button-color);
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
@@ -52,6 +52,7 @@ form .input-container select{
     outline: none;
     resize: none;
     background-color: transparent;
+
 }
 
 form .input-container textarea{
@@ -63,7 +64,7 @@ form .input-container label{
     top: -0.8rem;
     left: 1rem;
     font-size: 1.2rem;
-    padding: 0 1%;
+    padding: 1% 1%;
     background-color: var(--tertiary-color);
     border: 1px solid var(--tertiary-color);
     border-radius: 0.5rem;
@@ -141,8 +142,15 @@ img{
     form .input-container,
     form .input-container label{
         background-color: var(--secondary-color);
+        font-size: 1.7rem;
+    }
+    form .input-container input,
+    form .input-container textarea,
+    form .input-container select{
+        font-size: 1.7rem;
     }
     form .input-container label{
         border: 1px solid var(--secondary-color);
+        top: -1.7rem;
     }
 }

@@ -1,1 +1,93 @@
-<p>products-filter works!</p>
+<section class="filters" [class.compact]="compact">
+  <div class="grid">
+    <label class="field">
+      <span>Categoría</span>
+      <select [(ngModel)]="selectedCategoryId">
+        <option [ngValue]="undefined">Todas</option>
+        <option *ngFor="let c of categories()" [value]="c._id">
+          {{ c.title }}
+        </option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Buscar</span>
+      <input
+        type="text"
+        placeholder="Código, nombre, descripción..."
+        [(ngModel)]="q"
+      />
+    </label>
+
+    <label class="field">
+      <span>Categoría</span>
+      <select>
+        <option value="">Cualquiera</option>
+        <option>Tornillos</option>
+        <option>Contenedores</option>
+        <option>Pelvis</option>
+        <option>Miembro Superior</option>
+        <option>Miembro Inferior</option>
+        <option>Pies y manos</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Material</span>
+      <select>
+        <option value="">Cualquiera</option>
+        <option>Titanio Puro</option>
+        <option>Titanio</option>
+        <option>Acero</option>
+        <option>Acero Inoxidable</option>
+        <option>Aluminio Anodizado</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Lado</span>
+      <select [(ngModel)]="lado">
+        <option value="">Cualquiera</option>
+        <option>Derecha</option>
+        <option>Izquierda</option>
+        <option>Ambos</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span>Orificios</span>
+      <select [(ngModel)]="orificios">
+        <option value="">Cualquiera</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+      </select>
+    </label>
+
+    <div class="actions">
+      <app-button
+        text="Aplicar Filtros"
+        class="btn btn--primary"
+        icon="fa fa-solid fa-filter"
+        (click)="onApply()"
+        type="button"
+      ></app-button>
+      <app-button
+        text="Limpiar Filtros"
+        class="btn btn--primary"
+        icon="fa fa-solid fa-filter-circle-xmark"
+        (click)="clearAll()"
+        type="secondary"
+      ></app-button>
+    </div>
+  </div>
+</section>
