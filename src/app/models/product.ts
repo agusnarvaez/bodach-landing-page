@@ -48,8 +48,7 @@ export class Product {
   }
 }
 
-
-export interface ProductCard{
+export interface ProductCard {
   id: string
   title: string
   category: string
@@ -57,10 +56,11 @@ export interface ProductCard{
   photo: string
   variants_quantity: number
 }
-export interface ProductDetail{
+export interface ProductDetail {
   id: string
   title: string
   category: string
+  description: string
   materials: string[]
   variants: string[]
   photo: string

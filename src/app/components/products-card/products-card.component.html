@@ -10,8 +10,8 @@
 
   <div class="body">
     <h4 class="title">{{ product?.title }}</h4>
-    <h3 class="category" *ngIf="product?.categoryTitle">
-      {{ product.categoryTitle }}
+    <h3 class="category" *ngIf="product?.category">
+      {{ product?.category }}
     </h3>
     <ul class="materials">
       <li *ngFor="let material of product?.materials || []; let isLast = last">
@@ -21,7 +21,9 @@
       </li>
     </ul>
     <p class="variants">
-      {{ variantsQty() }} variante{{ variantsQty() === 1 ? '' : 's' }}
+      {{ product?.variants_quantity }} variante{{
+        product?.variants_quantity === 1 ? '' : 's'
+      }}
     </p>
     <div class="row">
       <app-button

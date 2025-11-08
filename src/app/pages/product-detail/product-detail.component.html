@@ -36,13 +36,13 @@
 
   <section class="info">
     <h1>{{ p.title }}</h1>
-    <h2>{{ p.categoryTitle }}</h2>
+    <h2>{{ p.category }}</h2>
     <p>{{ p.description }}</p>
     <section class="variants">
       <h3>Variantes disponibles</h3>
       <ul>
-        @for (variant of p.variants; track variant.code) {
-          <li>{{ variant.title }}</li>
+        @for (variant of p.variants; track variant) {
+          <li>{{ variant }}</li>
         }
       </ul>
     </section>
@@ -68,7 +68,7 @@
   <h3>También podría interesarte</h3>
   <div class="carousell">
     <div class="inner">
-      @for (product of suggested(); track product._id) {
+      @for (product of suggested(); track product.id) {
         <app-products-card [product]="product" />
       }
     </div>

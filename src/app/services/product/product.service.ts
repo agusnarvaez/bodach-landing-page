@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable, catchError, map, switchMap, throwError } from 'rxjs'
-import { Product, SanityProduct } from '../../models/product'
+import { ProductCard, ProductDetail } from '../../models/product'
 import { FiltersService } from '../filters/filters.service'
 import { SANITY_BASE_URL, environment } from '../../../../environment.prod'
 
@@ -17,55 +17,61 @@ export class ProductService {
     private http: HttpClient,
   ) {}
 
-  getAll(): Observable<Product[]> {
-    const query = this.filtersService.getQuery()
+  getAll(): Observable<ProductCard[]> {
+    const query = this.filtersService.getCardsQuery()
     const url = `${SANITY_BASE_URL}?query=${encodeURIComponent(query)}&perspective=${environment.sanity.perspective}`
-    return this.http.get<Response<SanityProduct[]>>(url).pipe(
+    return this.http.get<Response<ProductCard[]>>(url).pipe(
       catchError((err) => throwError(() => new Error(err.message))),
-      map((res) => (res.result || []).map((p) => new Product().fromSanity(p))),
+      map((res) => res.result || []),
     )
   }
 
-  getById(id: string): Observable<Product> {
+  getById(id: string): Observable<ProductDetail> {
     const q = `*[_type=="product" && _id=="${id}"]{
-      _id, title, slug, materials, description,
-      "category": category->{_id, title, slug},
-      "photo": photo{ asset->{ url } },
-      "variants": variants[]{ title, code, "photo": photo{ asset->{ url } }, attributes[]{ key, value } }
+      "id": _id,
+      title,
+      "category": coalesce(category->title, ""),
+      "materials": coalesce(materials, []),
+      "variants": coalesce(variants[].title, []),
+      "description": coalesce(description, ""),
+      "photo": photo.asset->url
     }[0]`
-
     const url = `${SANITY_BASE_URL}?query=${encodeURIComponent(q)}&perspective=${environment.sanity.perspective}`
-    return this.http.get<Response<SanityProduct>>(url).pipe(
+    return this.http.get<Response<ProductDetail>>(url).pipe(
       catchError((err) => throwError(() => new Error(err.message))),
-      map((res) => new Product().fromSanity(res.result as SanityProduct)),
+      map((res) => res.result as ProductDetail),
     )
   }
 
-  getSuggested(id: string): Observable<Product[]> {
-    // sugeridos: mismo tipo de categoría, distinto _id
-    const q = `*[_type=="product" && _id=="${id}"][0].category._ref`
-    const urlCat = `${SANITY_BASE_URL}?query=${encodeURIComponent(q)}`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return this.http.get<any>(urlCat).pipe(
-      map((r) => r.result as string),
-      // con el _ref de categoría, traemos 6 del mismo grupo
-      // (si no hay categoría, volvemos a getAll sin filtros)
-      switchMap((catRef?: string) => {
-        const where = catRef
+  getSuggested(id: string): Observable<ProductCard[]> {
+    const qCat = `*[_type=="product" && _id=="${id}"][0].category._ref`
+    const urlCat = `${SANITY_BASE_URL}?query=${encodeURIComponent(qCat)}&perspective=${environment.sanity.perspective}`
+
+    return this.http.get<Response<string | null>>(urlCat).pipe(
+      // aseguramos string, no string | undefined
+      map((r) => r.result ?? ''),
+
+      switchMap((catRef) => {
+        const base = catRef
           ? `*[_type=="product" && category._ref=="${catRef}" && _id!="${id}"]`
           : `*[_type=="product" && _id!="${id}"]`
-        const q2 = `${where}{
-          _id, title, "photo": photo{asset->{url}}, "category": category->{_id, title}
+
+        const q2 = `${base}{
+          "id": _id,
+          title,
+          "category": coalesce(category->title, ""),
+          "materials": coalesce(materials, []),
+          "photo": photo.asset->url,
+          "variants_quantity": count(variants)
         } | order(title asc) [0...6]`
-        const url = `${SANITY_BASE_URL}?query=${encodeURIComponent(q2)}`
+
+        const url = `${SANITY_BASE_URL}?query=${encodeURIComponent(q2)}&perspective=${environment.sanity.perspective}`
         return this.http
-          .get<Response<SanityProduct[]>>(url)
-          .pipe(
-            map((res) =>
-              (res.result || []).map((p) => new Product().fromSanity(p)),
-            ),
-          )
+          .get<Response<ProductCard[]>>(url)
+          .pipe(map((res) => res.result ?? []))
       }),
+
+      catchError((err) => throwError(() => new Error(err.message))),
     )
   }
 }
