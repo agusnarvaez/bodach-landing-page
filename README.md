@@ -1,16 +1,64 @@
-![Imagen de WhatsApp 2023-10-03 a las 11 28 45_998db9bc](https://github.com/agusnarvaez/bodach-landing-page/assets/71536606/b5d15ec7-fb9f-46f6-bed2-07146376d4cf)
+# bodach-landing-page
 
+[![QA](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml/badge.svg)](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml)
+[![Node.js](https://img.shields.io/badge/Node.js-22%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Angular](https://img.shields.io/badge/Angular-17-DD0031?logo=angular&logoColor=white)](https://angular.dev/)
 
-# Bodach Landing Page
+Angular landing page for Bodach, focused on product catalog presentation and corporate information.
 
-[![Build](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml/badge.svg)](https://github.com/agusnarvaez/bodach-landing-page/actions/workflows/build.yml)
+Landing page en Angular para Bodach, enfocada en la presentacion del catalogo de productos y la informacion corporativa.
 
-<!-- ![Coverage](./badges/bodach-landing-page/coverage.svg) -->
+## Overview
 
-Este proyecto será la landing page de Bodach, una empresa de implantes médicos, la cual se encuentra en desarrollo.
+### ES
 
-Para el desarrollo del frontend de la página de Bodach, se utilizó Angular, un marco de trabajo de JavaScript para la construcción de aplicaciones web de una sola página. Angular es conocido por su eficiencia y capacidad para crear aplicaciones web rápidas y eficientes. Además, se utilizó TypeScript, un superconjunto de JavaScript que añade tipos estáticos y objetos orientados a la programación. TypeScript ayuda a hacer el código más legible y menos propenso a errores.
+La aplicacion expone una home institucional, catalogo, detalle de producto, contacto y pagina 404. Consume contenido de productos desde Sanity y cuenta con testing sobre componentes, paginas y servicios Angular.
 
-Sanity, por otro lado, es un sistema de gestión de contenido que permite a los desarrolladores definir sus propios modelos de contenido en JavaScript y TypeScript. Esto hace que sea una excelente opción para manejar los productos en el catálogo de Bodach.
+### EN
 
-Por lo tanto, la pila de tecnología para la página de Bodach incluye Angular, TypeScript y Sanity.
+The application exposes a corporate home page, catalog, product detail, contact page, and 404 page. It consumes product content from Sanity and includes tests for Angular components, pages, and services.
+
+## Stack
+
+- Angular 17
+- TypeScript
+- RxJS
+- Karma + Jasmine
+- ESLint
+- GitHub Actions
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Main Commands
+
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run build:prod
+npm run test:ci
+```
+
+## Important Paths
+
+- `src/app/app.routes.ts` route definitions
+- `src/app/pages/` route-level pages
+- `src/app/components/` reusable UI pieces
+- `src/app/sections/` home and catalog sections
+- `src/app/services/` Sanity-backed data and email services
+- `environment.prod.ts` production environment values
+
+## Quality
+
+- ESLint validates the TypeScript source tree.
+- Angular build completes successfully in production mode.
+- CI runs headless tests with coverage plus lint.
+
+## License
+
+MIT. See [LICENSE](./LICENSE).

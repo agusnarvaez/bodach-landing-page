@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from '../../components/button/button.component'
 import { EmailService } from '../../services/email/email.service'
-import { Mail } from '../../models/mail'
 
 
 @Component({

@@ -15,7 +15,6 @@ import { ProductService } from '../../services/product/product.service'
     CommonModule,
     HomeBannerComponent,
     HomeIntroductionComponent,
-    HomeBannerComponent,
     HomeProductsComponent,
     HomeDevelopmentComponent,
     HomeSellersComponent,
