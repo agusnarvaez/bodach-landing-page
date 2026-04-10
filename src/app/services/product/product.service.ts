@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable, catchError, map, switchMap, throwError } from 'rxjs'
 import { ProductCard, ProductDetail } from '../../models/product'
 import { FiltersService } from '../filters/filters.service'
-import { SANITY_BASE_URL, environment } from '../../../../environment.prod'
+import { SANITY_BASE_URL, environment } from '../../../environments/environment'
 
 interface Response<T> {
   result: T

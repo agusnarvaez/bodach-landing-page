@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable, map, catchError, throwError } from 'rxjs'
-import { SANITY_BASE_URL, environment } from '../../../../environment.prod'
+import { SANITY_BASE_URL, environment } from '../../../environments/environment'
 
 export interface SanityCategory {
   _id: string

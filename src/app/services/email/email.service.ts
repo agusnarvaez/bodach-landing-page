@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core'
 import { Observable, catchError, map, throwError } from 'rxjs'
-import { environment } from '../../../../environment.prod'
+import { environment } from '../../../environments/environment'
 import { HttpClient } from '@angular/common/http'
 import { Mail } from '../../models/mail'
 
@@ -17,7 +17,7 @@ export class EmailService {
   sendEmail(mail:Mail):Observable<any> {
     console.log('Email sending')
     return this.http.post<any>(
-      `${environment.mail_api_dev}/mail/send`,
+      `${environment.MAIL_API}/mail/send`,
       mail
       )
       .pipe(
