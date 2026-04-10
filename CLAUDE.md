@@ -1,5 +1,3 @@
-# CLAUDE.md
-
 ## Project Snapshot
 
 `bodach-landing-page` is an Angular application for the Bodach public site and product catalog.
@@ -21,17 +19,7 @@
 - `src/app/sections/` home and products sections
 - `src/app/services/` product, category, filters, and email services
 - `.github/workflows/build.yml` QA workflow
-
-## Commands
-
-```bash
-npm install
-npm run dev
-npm run lint
-npm run build
-npm run build:prod
-npm run test:ci
-```
+- `src/environments/` environment variable management
 
 ## Working Rules
 
