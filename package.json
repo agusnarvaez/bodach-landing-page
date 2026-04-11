@@ -12,7 +12,7 @@
     "lint": "eslint \"**/*.{ts,tsx}\" ",
     "lint:fix": "eslint --fix \"**/*.{ts,tsx}\" ",
     "build:prod": "ng build --configuration production",
-    "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
+    "test:prod": "CHROMIUM_FLAGS=\"--no-sandbox --disable-gpu\" ng test --browsers=ChromeHeadless --watch=false --code-coverage",
     "test:ci": "npm run test:prod"
   },
   "private": true,
@@ -25,6 +25,8 @@
     "@angular/platform-browser": "^17.0.9",
     "@angular/platform-browser-dynamic": "^17.0.9",
     "@angular/router": "^17.0.9",
+    "@fortawesome/fontawesome-free": "^6.7.0",
+    "lucide-angular": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -34,6 +36,7 @@
     "@angular/cli": "^17.0.10",
     "@angular/compiler-cli": "^17.0.9",
     "@types/jasmine": "~5.1.0",
+    "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.53.0",

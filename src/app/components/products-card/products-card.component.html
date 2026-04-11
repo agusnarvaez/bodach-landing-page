@@ -1,37 +1,33 @@
 <article class="card">
-  <a class="thumb" [routerLink]="['/catalogo', product?.id]">
-    <div class="skeleton" [class.hide]="!loading"></div>
+  <a class="thumb" [routerLink]="['/catalogo', product?.id]" [attr.aria-label]="product?.title">
+    <div class="skeleton" [class.hide]="!loading()"></div>
     <img
-      [src]="photoUrl(product)"
-      [alt]="product?.title || 'Producto'"
+      [src]="photoUrl()"
+      [alt]="product?.title || ''"
+      loading="lazy"
       (load)="onLoad()"
     />
   </a>
 
   <div class="body">
     <h4 class="title">{{ product?.title }}</h4>
-    <h3 class="category" *ngIf="product?.category">
-      {{ product?.category }}
-    </h3>
+    @if (product?.category) {
+      <h3 class="category">{{ product?.category }}</h3>
+    }
     <ul class="materials">
-      <li *ngFor="let material of product?.materials || []; let isLast = last">
-        {{ material }}
-        <!-- Agregar separador entre materiales -->
-        <ng-container *ngIf="!isLast"> | </ng-container>
-      </li>
+      @for (material of product?.materials || []; track material; let isLast = $last) {
+        <li>{{ material }}@if (!isLast) { | }</li>
+      }
     </ul>
     <p class="variants">
-      {{ product?.variants_quantity }} variante{{
-        product?.variants_quantity === 1 ? '' : 's'
-      }}
+      {{ product?.variants_quantity }} variante{{ product?.variants_quantity === 1 ? '' : 's' }}
     </p>
     <div class="row">
       <app-button
         text="Ver detalle"
-        class="btn btn--primary"
-        [routerLink]="['/catalogo', product?.id]"
-      >
-      </app-button>
+        icon="arrow-right"
+        [link]="'/catalogo/' + product?.id"
+      />
     </div>
   </div>
 </article>

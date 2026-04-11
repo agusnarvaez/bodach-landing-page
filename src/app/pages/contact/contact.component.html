@@ -1,75 +1,109 @@
 <section>
+  <h2>ESTAMOS PARA AYUDARTE</h2>
 
-    <h2>ESTAMOS PARA AYUDARTE</h2>
+  @if (sent()) {
+    <div class="form-success" role="alert">
+      <p>¡Mensaje enviado! Nos pondremos en contacto a la brevedad.</p>
+      <app-button type="button" text="Enviar otro mensaje" (click)="sent.set(false)" />
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
-    <form #myForm="ngForm">
-
-        <div class="input-container">
-            <label for="contactName">
-                Nombre y apellido
-            </label>
-                <input
-                    type='text'
-                    placeholder="Juan Perez"
-                    id='contactName'
-                    [(ngModel)]="fullName"
-                    name="fullName"
-                    />
+      @if (sendError()) {
+        <div class="form-error-banner" role="alert">
+          Ocurrió un error al enviar el mensaje. Por favor, intentá de nuevo.
         </div>
+      }
 
-        <div class="input-container">
-            <label for="contactEmail">
-                Email
-            </label>
-                <input
-                    type='text'
-                    placeholder="juan.perez@hotmail.com"
-                    id='contactEmail'
-                    [(ngModel)]="email"
-                    name="email"
-                    />
-        </div>
+      <div class="input-container">
+        <label for="contactName">Nombre y apellido</label>
+        <input
+          type="text"
+          id="contactName"
+          placeholder="Juan Perez"
+          formControlName="fullName"
+          [attr.aria-describedby]="fullName.invalid && fullName.touched ? 'nameError' : null"
+          [class.input-invalid]="fullName.invalid && fullName.touched"
+        />
+        @if (fullName.invalid && fullName.touched) {
+          <span id="nameError" class="field-error" role="alert">
+            @if (fullName.errors?.['required']) { El nombre es requerido. }
+            @else if (fullName.errors?.['minlength']) { Mínimo 3 caracteres. }
+          </span>
+        }
+      </div>
 
-        <div class="input-container">
-            <label for="contactPhone">
-                Teléfono
-            </label>
-                <input
-                    type='text'
-                    placeholder="11 1234 5678"
-                    id='contactPhone'
-                    [(ngModel)]="phone"
-                    name="phone"
-                    />
-        </div>
+      <div class="input-container">
+        <label for="contactEmail">Email</label>
+        <input
+          type="email"
+          id="contactEmail"
+          placeholder="juan.perez@hotmail.com"
+          formControlName="email"
+          [attr.aria-describedby]="email.invalid && email.touched ? 'emailError' : null"
+          [class.input-invalid]="email.invalid && email.touched"
+        />
+        @if (email.invalid && email.touched) {
+          <span id="emailError" class="field-error" role="alert">
+            @if (email.errors?.['required']) { El email es requerido. }
+            @else if (email.errors?.['email']) { Ingresá un email válido. }
+          </span>
+        }
+      </div>
 
+      <div class="input-container">
+        <label for="contactPhone">Teléfono <span class="optional">(opcional)</span></label>
+        <input
+          type="tel"
+          id="contactPhone"
+          placeholder="11 1234 5678"
+          formControlName="phone"
+        />
+      </div>
 
-        <div class="input-container">
-            <label for="contactSubject">Motivo</label>
-            <select id="contactSubject" name="subject" [(ngModel)]="subject">
-                <option value="" disabled selected>Seleccione un motivo</option>
-                <option value="Consulta General">Consulta general</option>
-                <option value="Atencion al cliente">Atención al cliente</option>
-                <option value="Distribuidores">Distribuidores</option>
-            </select>
-        </div>
+      <div class="input-container">
+        <label for="contactSubject">Motivo</label>
+        <select
+          id="contactSubject"
+          formControlName="subject"
+          [attr.aria-describedby]="subject.invalid && subject.touched ? 'subjectError' : null"
+          [class.input-invalid]="subject.invalid && subject.touched"
+        >
+          <option value="" disabled>Seleccione un motivo</option>
+          <option value="Consulta General">Consulta general</option>
+          <option value="Atencion al cliente">Atención al cliente</option>
+          <option value="Distribuidores">Distribuidores</option>
+        </select>
+        @if (subject.invalid && subject.touched) {
+          <span id="subjectError" class="field-error" role="alert">Seleccioná un motivo.</span>
+        }
+      </div>
 
-        <div class="input-container">
-            <label for="contactMessage">
-                Mensaje
-            </label>
-                <textarea
-                    placeholder="Escribe tu mensaje"
-                    id="contactMessage"
-                    [(ngModel)]="message"
-                    name='message'
-                    ></textarea>
-        </div>
+      <div class="input-container">
+        <label for="contactMessage">Mensaje</label>
+        <textarea
+          id="contactMessage"
+          placeholder="Escribe tu mensaje"
+          formControlName="message"
+          [attr.aria-describedby]="message.invalid && message.touched ? 'messageError' : null"
+          [class.input-invalid]="message.invalid && message.touched"
+        ></textarea>
+        @if (message.invalid && message.touched) {
+          <span id="messageError" class="field-error" role="alert">
+            @if (message.errors?.['required']) { El mensaje es requerido. }
+            @else if (message.errors?.['minlength']) { Mínimo 10 caracteres. }
+          </span>
+        }
+      </div>
 
-        <app-button (click)="onSubmit()"text="Enviar" ></app-button>
-
+      <app-button
+        type="submit"
+        [text]="sending() ? 'Enviando…' : 'Enviar'"
+        [attr.aria-disabled]="sending()"
+      />
 
     </form>
-    <img src="../../../assets/backgrounds/contact.jpeg">
+  }
 
+  <img src="../../../assets/backgrounds/contact.jpeg" alt="" loading="lazy" />
 </section>

@@ -1,80 +1,80 @@
 <nav class="back">
-  <i class="fa fa-solid fa-chevron-left"></i>
+  <lucide-icon name="chevron-left" [size]="18" aria-hidden="true" />
   <a routerLink="/catalogo">Volver a productos</a>
 </nav>
 
-<section class="hero" *ngIf="product() as p">
-  <div class="media">
-    <div class="tabs">
-      <!-- <button
-        [class.active]="activeTab() === 'img'"
-        (click)="activeTab.set('img')"
-      >
-        Imágenes
-      </button> -->
-      <!-- <button
-        [class.active]="activeTab() === 'video'"
-        (click)="activeTab.set('video')"
-      >
-        Video implementación
-      </button> -->
-      <!-- <button
-        [class.active]="activeTab() === '3d'"
-        (click)="activeTab.set('3d')"
-      >
-        Visión 3D
-      </button> -->
-    </div>
-
-    <div class="frame">
-      <img *ngIf="activeTab() === 'img'" [src]="photoUrl()" [alt]="p.title" />
-      <div class="placeholder" *ngIf="activeTab() !== 'img'">
-        Contenido no disponible
-      </div>
-    </div>
-  </div>
-
-  <section class="info">
-    <h1>{{ p.title }}</h1>
-    <h2>{{ p.category }}</h2>
-    <p>{{ p.description }}</p>
-    <section class="variants">
-      <h3>Variantes disponibles</h3>
-      <ul>
-        @for (variant of p.variants; track variant) {
-          <li>{{ variant }}</li>
-        }
-      </ul>
-    </section>
-
-    <div class="cta">
-      <app-button
-        type="button"
-        text="Solicitar cotización"
-        icon="fa fa-solid fa-dollar-sign"
-        (click)="mailto()"
-      ></app-button>
-      <app-button
-        (click)="copyUrl()"
-        [icon]="!copying() ? 'fa fa-solid fa-copy' : 'fa fa-solid fa-check'"
-        type="secondary"
-        [text]="!copying() ? 'Copiar URL del producto' : 'Copiado'"
-      ></app-button>
+@if (loading()) {
+  <section class="hero hero--loading" aria-label="Cargando producto" aria-busy="true">
+    <div class="loading-placeholder shimmer media-placeholder"></div>
+    <div class="loading-placeholder-body">
+      <div class="shimmer line" style="width: 60%; height: 3.2rem"></div>
+      <div class="shimmer line" style="width: 35%"></div>
+      <div class="shimmer line" style="width: 80%"></div>
+      <div class="shimmer line" style="width: 80%"></div>
     </div>
   </section>
-</section>
-
-<section class="suggested" *ngIf="suggested().length">
-  <h3>También podría interesarte</h3>
-  <div class="carousell">
-    <div class="inner">
-      @for (product of suggested(); track product.id) {
-        <app-products-card [product]="product" />
-      }
+} @else if (error()) {
+  <section class="state-error" role="alert">
+    <p>No se pudo cargar el producto. Verificá tu conexión o intentá de nuevo.</p>
+    <a routerLink="/catalogo" class="back-link">← Volver al catálogo</a>
+  </section>
+} @else if (product()) {
+  <section class="hero">
+    <div class="media">
+      <div class="frame">
+        <img [src]="photoUrl()" [alt]="product()!.title" loading="lazy" />
+      </div>
     </div>
-  </div>
-  <app-button
-    text="Ver Todos los productos"
-    routerLink="/catalogo"
-  ></app-button>
-</section>
+
+    <section class="info">
+      <h1>{{ product()!.title }}</h1>
+      <h2>{{ product()!.category }}</h2>
+      <p>{{ product()!.description }}</p>
+
+      <section class="variants" aria-label="Variantes disponibles">
+        <h3>Variantes disponibles</h3>
+        <ul>
+          @for (variant of product()!.variants; track variant) {
+            <li>{{ variant }}</li>
+          }
+        </ul>
+      </section>
+
+      <div class="cta">
+        <app-button
+          type="button"
+          text="Solicitar cotización"
+          icon="dollar-sign"
+          (click)="mailto()"
+        />
+        <app-button
+          (click)="shareOpen.set(true)"
+          icon="share-2"
+          type="secondary"
+          text="Compartir producto"
+        />
+      </div>
+    </section>
+  </section>
+
+  @if (suggested().length) {
+    <section class="suggested" aria-label="Productos relacionados">
+      <h3>También podría interesarte</h3>
+      <div class="carousell">
+        <div class="inner">
+          @for (product of suggested(); track product.id) {
+            <app-products-card [product]="product" />
+          }
+        </div>
+      </div>
+      <app-button text="Ver todos los productos" icon="package" routerLink="/catalogo" />
+    </section>
+  }
+}
+
+<app-share-modal
+  [isOpen]="shareOpen()"
+  [url]="shareUrl()"
+  [title]="shareTitle()"
+  (closed)="shareOpen.set(false)"
+/>

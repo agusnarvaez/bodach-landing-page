@@ -1,19 +1,23 @@
 @if (isLink()) {
   <a
-    class="btn {{ icon }}"
-    [ngClass]="{ 'btn-secondary': isSecondary }"
+    class="btn"
+    [ngClass]="{ 'btn-secondary': isSecondary() }"
     [routerLink]="link"
   >
+    @if (icon) {
+      <lucide-icon [name]="icon" [size]="20" />
+    }
     {{ text }}
   </a>
 } @else {
   <button
-    *ngIf="!isLink()"
     class="btn"
     [ngClass]="{ 'btn-secondary': isSecondary() }"
     type="{{ buttonType() }}"
   >
-    <i *ngIf="icon" class="{{ icon }}"></i>
+    @if (icon) {
+      <lucide-icon [name]="icon" [size]="20" />
+    }
     {{ text }}
   </button>
 }

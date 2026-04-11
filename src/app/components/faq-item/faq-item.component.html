@@ -1,5 +1,23 @@
-<div (click)="toggleAnswer()" class="faq-item" [ngClass]="{'show': showAnswer}">
-    <h3>{{question}}</h3>
-    <div ></div>
-    <p>{{answer}}</p>
+<div class="faq-item" [class.show]="showAnswer()">
+  <button
+    class="faq-trigger"
+    [attr.aria-expanded]="showAnswer()"
+    [attr.aria-controls]="'faq-panel-' + question"
+    (click)="toggleAnswer()"
+    (keydown.enter)="toggleAnswer()"
+    (keydown.space)="$event.preventDefault(); toggleAnswer()"
+  >
+    <h3>{{ question }}</h3>
+    <div class="faq-icon" aria-hidden="true"></div>
+  </button>
+
+  <div
+    [id]="'faq-panel-' + question"
+    class="faq-answer"
+    [attr.aria-hidden]="!showAnswer()"
+    role="region"
+    [attr.aria-labelledby]="'faq-trigger-' + question"
+  >
+    <p>{{ answer }}</p>
+  </div>
 </div>

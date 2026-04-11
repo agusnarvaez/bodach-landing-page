@@ -44,6 +44,10 @@ input[type='text'] {
   border-radius: 0.5rem;
   padding: 0.55rem 0.7rem;
   outline: none;
+  cursor: pointer;
+}
+input[type='text'] {
+  cursor: text;
 }
 .switchfield {
   display: flex;

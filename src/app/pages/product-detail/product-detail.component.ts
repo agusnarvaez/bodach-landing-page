@@ -1,49 +1,67 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, inject, signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CommonModule } from '@angular/common'
-import { ActivatedRoute, RouterModule } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
+import { forkJoin } from 'rxjs'
 import { ProductService } from '../../services/product/product.service'
 import { ProductsCardComponent } from '../../components/products-card/products-card.component'
 import { ButtonComponent } from '../../components/button/button.component'
+import { SeoService } from '../../services/seo/seo.service'
 import { ProductCard, ProductDetail } from '../../models/product'
+import { LucideAngularModule } from 'lucide-angular'
+import { ShareModalComponent } from '../../components/share-modal/share-modal.component'
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProductsCardComponent, ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, RouterModule, ProductsCardComponent, ButtonComponent, LucideAngularModule, ShareModalComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent {
   private route = inject(ActivatedRoute)
+  private router = inject(Router)
   private productSrv = inject(ProductService)
+  private seoService = inject(SeoService)
+  private destroyRef = inject(DestroyRef)
 
   product = signal<ProductDetail | null>(null)
   suggested = signal<ProductCard[]>([])
+  loading = signal(true)
+  error = signal(false)
   activeTab = signal<'img' | 'video' | '3d'>('img')
-  copying = signal(false)
-  copiedCode = signal<string | null>(null)
+  shareOpen = signal(false)
+
+  shareUrl = signal('')
+  shareTitle = signal('')
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') as string
-    this.productSrv.getById(id).subscribe((p) => {
-      this.product.set(p)
-    })
-    this.productSrv
-      .getSuggested(id)
-      .subscribe((list) => this.suggested.set(list))
+
+    forkJoin([this.productSrv.getById(id), this.productSrv.getSuggested(id)])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ([p, list]) => {
+          this.product.set(p)
+          this.suggested.set(list)
+          this.loading.set(false)
+          if (p) {
+            this.seoService.setProduct(p, this.router.url)
+            this.shareUrl.set(typeof window !== 'undefined' ? window.location.href : '')
+            this.shareTitle.set(`${p.title} — Bodach`)
+          }
+        },
+        error: () => {
+          this.error.set(true)
+          this.loading.set(false)
+        },
+      })
   }
 
   photoUrl(): string {
     const p = this.product()
     return p?.photo || 'assets/products/stock.png'
-  }
-
-  copyUrl() {
-    this.copying.set(true)
-    navigator.clipboard.writeText(location.href).finally(() => {
-      setTimeout(() => this.copying.set(false), 900)
-    })
   }
 
   mailto() {

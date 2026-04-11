@@ -22,6 +22,10 @@ header .header-button{
     width: 40px;
     height: 30px;
     position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 header .header-button div,
@@ -69,16 +73,18 @@ header .header-button.show::before{
 
 nav{
     width: 100%;
-    height: 90vh;
-    position: absolute;
+    height: calc(100dvh - 10vh);
+    overflow-y: auto;
+    position: fixed;
     top: 10vh;
-    right: -100%;
+    right: 0;
+    transform: translateX(100%);
     display: flex;
     justify-content: center;
     align-items: flex-start;
     z-index: 999;
     background-color: var(--secondary-color);
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }
 
 ul{
@@ -92,10 +98,7 @@ ul{
     background-color: var(--secondary-color);
 }
 nav.show{
-    /* top: 10vh; */
-    right: 0;
-    /* opacity: 1; */
-    visibility: visible;
+    transform: translateX(0);
 }
 
 ul li{
@@ -148,6 +151,7 @@ nav ul li a.active{
 
     nav{
         top: 15vh;
+        height: calc(100dvh - 15vh);
     }
 
     ul li a{
@@ -181,6 +185,7 @@ nav ul li a.active{
         background-color: transparent;
         width: 60%;
         height: 100%;
+        transform: none;
     }
 
     ul{
@@ -203,17 +208,24 @@ nav ul li a.active{
     }
 
     ul li a{
-        font-size: 2rem;
+        font-size: 1.6rem;
+        /* Was: #767676 — fails WCAG AA on light background; now uses token raised to #5a5a5a */
         color: var(--tertiary-color-darker);
         padding: 0%;
+    }
+
+    /* In desktop the nav is always visible — remove aria-hidden side effects */
+    nav[aria-hidden="true"] {
+        display: flex;
     }
 
 }
 
 
 @media (min-width: 1150px) {
-
-
+    nav[aria-hidden="true"] {
+        display: flex;
+    }
 }
 
 

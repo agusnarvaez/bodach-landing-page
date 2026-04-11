@@ -1,27 +1,29 @@
 import { Routes } from '@angular/router'
-import { HomeComponent } from './pages/home/home.component'
-import { ProductsComponent } from './pages/products/products.component'
-import { ProductDetailComponent } from './pages/product-detail/product-detail.component'
-import { ContactComponent } from './pages/contact/contact.component'
-import { NotFoundComponent } from './pages/not-found/not-found.component'
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
+    title: 'Bodach — Herrajes y Fijaciones Industriales',
   },
   {
     path: 'catalogo',
-    component: ProductsComponent
+    loadComponent: () => import('./pages/products/products.component').then((m) => m.ProductsComponent),
+    title: 'Catálogo de Productos — Bodach',
   },
   {
     path: 'catalogo/:id',
-    component: ProductDetailComponent
+    loadComponent: () => import('./pages/product-detail/product-detail.component').then((m) => m.ProductDetailComponent),
   },
   {
-    path:"contacto",
-    component: ContactComponent
+    path: 'contacto',
+    loadComponent: () => import('./pages/contact/contact.component').then((m) => m.ContactComponent),
+    title: 'Contacto — Bodach',
+  },
+  {
+    path: 'notFound',
+    loadComponent: () => import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    title: 'Página no encontrada — Bodach',
   },
   { path: '**', redirectTo: 'notFound' },
-  { path: 'notFound', component: NotFoundComponent }
 ]

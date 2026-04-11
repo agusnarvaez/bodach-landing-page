@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ButtonComponent } from '../../../components/button/button.component'
 import { RouterModule } from '@angular/router'
@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router'
 @Component({
   selector: 'app-home-products',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule,ButtonComponent,RouterModule],
   templateUrl: './home-products.component.html',
   styleUrl: './home-products.component.css'

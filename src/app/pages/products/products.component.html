@@ -1,16 +1,31 @@
-<app-products-banner></app-products-banner>
+<app-products-banner />
 
 <aside class="catalog__filters">
   <app-products-filter (apply)="onApply()" />
 </aside>
 
 <main class="catalog__grid">
-  <div class="loading" *ngIf="loading()">Cargando...</div>
 
-  <div class="grid" *ngIf="!loading()">
-    <app-products-card
-      *ngFor="let p of products(); trackBy: trackById"
-      [product]="p"
-    />
-  </div>
+  @if (loading()) {
+    <div class="grid" aria-label="Cargando productos" aria-busy="true">
+      <app-product-skeleton [count]="6" />
+    </div>
+  } @else if (error()) {
+    <div class="state-message state-error" role="alert">
+      <p>No se pudieron cargar los productos. Verificá tu conexión.</p>
+      <button class="retry-btn" (click)="fetch()">Reintentar</button>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="state-message state-empty" role="status">
+      <p>No se encontraron productos con los filtros seleccionados.</p>
+      <button class="retry-btn" (click)="clearAndFetch()">Limpiar filtros</button>
+    </div>
+  } @else {
+    <div class="grid">
+      @for (p of products(); track p.id) {
+        <app-products-card [product]="p" />
+      }
+    </div>
+  }
+
 </main>

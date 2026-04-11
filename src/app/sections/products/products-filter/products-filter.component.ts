@@ -1,11 +1,14 @@
 import {
+  ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   EventEmitter,
   Input,
   Output,
   signal,
   inject,
 } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CommonModule } from '@angular/common'
 import {
   CategoryService,
@@ -23,6 +26,7 @@ type Lado = 'Derecha' | 'Izquierda' | 'Ambos'
 @Component({
   selector: 'app-products-filter',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, FormsModule, ButtonComponent],
   templateUrl: './products-filter.component.html',
   styleUrl: './products-filter.component.css',
@@ -33,9 +37,9 @@ export class ProductsFilterComponent {
 
   private categoriesSrv = inject(CategoryService)
   private filtersSrv = inject(FiltersService)
+  private destroyRef = inject(DestroyRef)
 
   categories = signal<SanityCategory[]>([])
-  // estado local del form
   selectedCategoryId: string | undefined
   q = ''
   material = ''
@@ -44,9 +48,11 @@ export class ProductsFilterComponent {
   hasPhoto = false
 
   ngOnInit() {
-    this.categoriesSrv.getAll().subscribe((cs) => this.categories.set(cs))
+    this.categoriesSrv
+      .getAll()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((cs) => this.categories.set(cs))
 
-    // cargar filtros ya activos si vuelven a la página
     const f = this.filtersSrv.get()
     this.selectedCategoryId = f.categoryId
     this.q = f.q || ''
@@ -71,10 +77,7 @@ export class ProductsFilterComponent {
     this.filtersSrv.clear()
 
     if (this.selectedCategoryId)
-      this.filtersSrv.add({
-        name: 'categoryId',
-        value: this.selectedCategoryId,
-      })
+      this.filtersSrv.add({ name: 'categoryId', value: this.selectedCategoryId })
     if (this.q.trim()) this.filtersSrv.add({ name: 'q', value: this.q.trim() })
     if (this.material.trim())
       this.filtersSrv.add({ name: 'material', value: this.material.trim() })

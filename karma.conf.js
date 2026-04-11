@@ -25,16 +25,38 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/worldcapp-2023-grupo-3'),
+      dir: require('path').join(__dirname, './coverage/bodach-landing-page'),
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }, // <-- agregar una coma al final
-        { type: 'json-summary' }  // <-- agregar esta línea
-      ]
+        { type: 'text-summary' },
+        { type: 'lcov' }
+      ],
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      }
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox',
+          '--disable-gpu',
+          '--disable-dev-shm-usage',
+          '--user-data-dir=/tmp/karma-chrome-profile'
+        ]
+      }
+    },
+    captureTimeout: 120000,
+    browserDisconnectTimeout: 30000,
+    browserNoActivityTimeout: 60000,
     restartOnFileChange: true
   })
 }

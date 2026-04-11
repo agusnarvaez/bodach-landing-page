@@ -1,0 +1,36 @@
+@if (isOpen || closing()) {
+  <div class="backdrop" [class.closing]="closing()" (click)="dismiss()" aria-hidden="true"></div>
+  <div class="sheet" [class.closing]="closing()" role="dialog" aria-modal="true" aria-label="Opciones para compartir">
+    <div class="handle"></div>
+    <p class="sheet-title">Compartir</p>
+    <ul class="options">
+      <li>
+        <button (click)="copyLink()" [class.success]="copied()">
+          <lucide-icon [name]="copied() ? 'check' : 'link'" [size]="22" />
+          <span>{{ copied() ? '¡Copiado!' : 'Copiar link' }}</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="shareWhatsapp()">
+          <lucide-icon name="message-circle" [size]="22" />
+          <span>WhatsApp</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="shareEmail()">
+          <lucide-icon name="mail" [size]="22" />
+          <span>Email</span>
+        </button>
+      </li>
+      @if (canShare()) {
+        <li>
+          <button (click)="shareNative()">
+            <lucide-icon name="share-2" [size]="22" />
+            <span>Más opciones</span>
+          </button>
+        </li>
+      }
+    </ul>
+    <button class="cancel" (click)="dismiss()">Cancelar</button>
+  </div>
+}

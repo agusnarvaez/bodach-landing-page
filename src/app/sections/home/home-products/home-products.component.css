@@ -20,6 +20,11 @@
     padding-bottom: 5%;
 }
 
+.products .products-photo > i{
+    font-size: 3rem;
+    z-index: 10000;
+}
+
 .products .products-photo img{
     position: absolute;
     width: 100%;

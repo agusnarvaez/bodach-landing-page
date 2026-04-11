@@ -1,6 +1,21 @@
 <section>
+  <div class="overlay"></div>
+  <div class="content">
     <h2>Encontrá lo que estás buscando</h2>
-    <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel molestias blanditiis incidunt temporibus eum exercitationem nesciunt.</h3>
-    <app-button text="Compartir catálogo"></app-button>
-    <img src="../../../../assets/backgrounds/products-banner.jpg" alt="Banner de productos">
+    <p>Herrajes, bulones y fijaciones industriales de aluminio, PVC y acero para carpintería y metalurgia.</p>
+    <app-button
+      text="Compartir catálogo"
+      icon="share-2"
+      type="button"
+      (click)="openShare()"
+    ></app-button>
+  </div>
+  <img src="../../../../assets/backgrounds/products-banner.jpg" alt="Banner de productos">
 </section>
+
+<app-share-modal
+  [isOpen]="shareOpen()"
+  [url]="catalogUrl"
+  title="Catálogo Bodach — Herrajes y Fijaciones Industriales"
+  (closed)="shareOpen.set(false)"
+/>

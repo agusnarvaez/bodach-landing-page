@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { ButtonComponent } from '../button/button.component'
@@ -10,19 +9,20 @@ const DEFAULT_STOCK = 'assets/products/stock.png'
 @Component({
   selector: 'app-products-card',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, RouterModule, ButtonComponent],
   templateUrl: './products-card.component.html',
   styleUrl: './products-card.component.css',
 })
 export class ProductsCardComponent {
   @Input() product: ProductCard | null = null
-  loading = true
+  loading = signal(true)
 
-  photoUrl(p: any): string {
-    return p?.photo?.asset?.url || DEFAULT_STOCK
+  photoUrl(): string {
+    return this.product?.photo || DEFAULT_STOCK
   }
 
   onLoad() {
-    this.loading = false
+    this.loading.set(false)
   }
 }

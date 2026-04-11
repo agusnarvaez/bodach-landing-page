@@ -1,0 +1,124 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+}
+
+.backdrop,
+.sheet {
+  pointer-events: auto;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  animation: fade-in 0.2s ease forwards;
+}
+.backdrop.closing {
+  animation: fade-out 0.22s ease forwards;
+}
+
+.sheet {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2rem);
+  max-width: 560px;
+  background: #fff;
+  border-radius: 1.6rem;
+  padding: 1.2rem 2rem 2rem;
+  animation: slide-up 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.16);
+}
+.sheet.closing {
+  animation: slide-down 0.22s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.handle {
+  width: 4rem;
+  height: 0.4rem;
+  background: #ddd;
+  border-radius: 99px;
+  margin: 0 auto 1.6rem;
+}
+
+.sheet-title {
+  font-size: var(--text-body);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.6rem;
+  color: var(--ink);
+}
+
+.options {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.options button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.2rem 1.6rem;
+  border: none;
+  background: none;
+  border-radius: 1rem;
+  font-size: var(--text-body);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-align: left;
+}
+.options button:hover {
+  background: #f4f0ec;
+}
+.options button.success {
+  color: var(--color-success);
+}
+.options button lucide-icon {
+  flex-shrink: 0;
+  color: var(--primary-color);
+}
+.options button.success lucide-icon {
+  color: var(--color-success);
+}
+
+.cancel {
+  width: 100%;
+  padding: 1.2rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 1rem;
+  background: none;
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cancel:hover {
+  background: #f4f0ec;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes slide-up {
+  from { transform: translateX(-50%) translateY(120%); }
+  to   { transform: translateX(-50%) translateY(0); }
+}
+@keyframes slide-down {
+  from { transform: translateX(-50%) translateY(0); }
+  to   { transform: translateX(-50%) translateY(120%); }
+}

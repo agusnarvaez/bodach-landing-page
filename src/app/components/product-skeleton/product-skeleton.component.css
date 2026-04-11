@@ -1,0 +1,48 @@
+:host {
+  display: contents;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e1d9d3;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.skeleton-thumb {
+  aspect-ratio: 4/3;
+  width: 100%;
+}
+
+.skeleton-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.skeleton-line {
+  height: 1.6rem;
+  border-radius: 6px;
+}
+
+/* Shimmer animation */
+.shimmer {
+  background: linear-gradient(90deg, #efeae6 25%, #f6f3f1 37%, #efeae6 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+    background: #efeae6;
+  }
+}

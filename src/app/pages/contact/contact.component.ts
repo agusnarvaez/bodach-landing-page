@@ -1,47 +1,75 @@
-import { FormsModule, NgForm } from '@angular/forms'
-import { Component, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CommonModule } from '@angular/common'
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms'
 import { ButtonComponent } from '../../components/button/button.component'
 import { EmailService } from '../../services/email/email.service'
-
+import { Mail } from '../../models/mail'
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule,FormsModule,ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrl: './contact.component.css',
 })
-
-
 export class ContactComponent {
-  @ViewChild('myForm') myForm!: NgForm
-  message: string = ''
-  fullName: string = ''
-  email: string = ''
-  phone: string = ''
-  subject: string = ''
+  private fb = inject(FormBuilder)
+  private emailService = inject(EmailService)
+  private destroyRef = inject(DestroyRef)
 
-  constructor(
-    public emailService: EmailService
-  ) {}
+  sending = signal(false)
+  sent = signal(false)
+  sendError = signal(false)
 
-  /* sendMail = (mailToSend: Mail) => {
+  form = this.fb.nonNullable.group({
+    fullName: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: [''],
+    subject: ['', Validators.required],
+    message: ['', [Validators.required, Validators.minLength(10)]],
+  })
 
-    this.emailService.sendEmail(mailToSend).subscribe({
-      next: (response) => {
-        console.log(response)
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-
-  } */
+  get fullName() { return this.form.controls.fullName }
+  get email() { return this.form.controls.email }
+  get phone() { return this.form.controls.phone }
+  get subject() { return this.form.controls.subject }
+  get message() { return this.form.controls.message }
 
   onSubmit() {
-    console.log(this.myForm.value)
-    /* this.message = 'Mensaje enviado' */
-    /* this.myForm.reset() */
+    if (this.form.invalid) {
+      this.form.markAllAsTouched()
+      return
+    }
+
+    const { fullName, email, phone, subject, message } = this.form.getRawValue()
+    const mail = new Mail(
+      'ventas@bodach.com.ar',
+      email,
+      subject,
+      message,
+      `<p><strong>De:</strong> ${fullName} (${email}${phone ? ', ' + phone : ''})</p>
+       <p><strong>Asunto:</strong> ${subject}</p>
+       <p><strong>Mensaje:</strong><br>${message}</p>`,
+    )
+
+    this.sending.set(true)
+    this.sendError.set(false)
+
+    this.emailService
+      .sendEmail(mail)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.sent.set(true)
+          this.sending.set(false)
+          this.form.reset()
+        },
+        error: () => {
+          this.sendError.set(true)
+          this.sending.set(false)
+        },
+      })
   }
 }
