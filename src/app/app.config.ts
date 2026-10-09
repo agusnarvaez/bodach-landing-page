@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core'
-import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router'
+import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router'
 
 import { routes } from './app.routes'
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
@@ -14,7 +14,7 @@ import {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withPreloading(PreloadAllModules)),
+    provideRouter(routes, withPreloading(PreloadAllModules), withInMemoryScrolling({ scrollPositionRestoration: 'top' })),
     provideHttpClient(withInterceptors([httpStateInterceptor])),
     importProvidersFrom(
       LucideAngularModule.pick({

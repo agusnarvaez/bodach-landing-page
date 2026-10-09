@@ -2,12 +2,10 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 2% 0;
+  padding: 0.4rem 0;
   overflow: hidden;
 }
 
-
-/* Trigger button — reset browser defaults */
 .faq-trigger {
   width: 100%;
   display: flex;
@@ -17,50 +15,52 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5% 0;
+  padding: 1.6rem 0;
   text-align: left;
+  gap: 1.6rem;
 }
 
 .faq-trigger h3 {
-  font-size: 2rem;
-  line-height: 2.5rem;
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  line-height: 1.4;
   font-weight: 700;
-  width: 90%;
-  padding-right: 2%;
+  flex: 1;
 }
 
 .faq-icon {
-  width: 10%;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
   position: relative;
-  min-height: 2rem;
 }
 
 .faq-icon::after,
 .faq-icon::before {
   content: '';
   display: block;
-  width: 70%;
-  height: 4px;
+  width: 1.4rem;
+  height: 2.5px;
   background-color: var(--primary-color);
   position: absolute;
-  bottom: 50%;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   transition: transform 0.25s ease-in-out;
+  border-radius: 2px;
 }
 
 .faq-icon::after {
-  transform: rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .faq-item.show .faq-icon::before {
-  transform: rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .faq-item.show .faq-icon::after {
-  transform: rotate(135deg);
+  transform: translate(-50%, -50%) rotate(135deg);
 }
 
-/* Answer panel */
 .faq-answer {
   overflow: hidden;
   max-height: 0;
@@ -68,28 +68,13 @@
 }
 
 .faq-answer p {
-  font-size: 2rem;
-  line-height: 2.2rem;
+  font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+  line-height: 1.6;
   font-weight: 400;
-  padding-bottom: 1rem;
+  padding-bottom: 1.2rem;
+  color: var(--color-text-muted);
 }
 
 .faq-item.show .faq-answer {
-  max-height: 500px;
-}
-
-@media (min-width: 530px) {
-  .faq-icon::after,
-  .faq-icon::before { width: 40%; }
-  .faq-trigger h3 { font-size: 2.5rem; }
-  .faq-answer p { font-size: 2.5rem; line-height: 3rem; }
-}
-
-@media (min-width: 950px) {
-  .faq-icon::after,
-  .faq-icon::before { width: 20%; height: 5px; }
-  .faq-item { padding: 3rem 0; }
-  .faq-trigger h3 { font-size: 4rem; line-height: 4.5rem; padding: 2rem 2rem 2rem 0; }
-  .faq-answer p { font-size: 3rem; line-height: 3.5rem; }
-  .faq-item.show .faq-answer { max-height: 1000px; }
+  max-height: 600px;
 }

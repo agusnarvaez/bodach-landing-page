@@ -1,6 +1,6 @@
 footer {
   width: 100%;
-  min-height: 90vh;
+  min-height: unset;
   background-color: var(--tertiary-color);
   display: flex;
   flex-direction: column;
@@ -10,7 +10,15 @@ footer {
   border-top: 5px solid var(--primary-color);
 }
 footer h2 {
-  padding-bottom: 2%;
+  padding-bottom: 0.8rem;
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  font-weight: 700;
+}
+
+footer address,
+footer p,
+footer a {
+  font-size: clamp(1.3rem, 1.5vw, 1.5rem);
 }
 
 footer section,
@@ -60,8 +68,8 @@ footer section img:first-child {
 
 @media (min-width: 530px) {
   footer {
-    padding: 0% 3%;
-    min-height: 50vh;
+    padding: 3% 5%;
+    min-height: unset;
   }
   footer section ul,
   footer:last-child section {

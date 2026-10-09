@@ -6,9 +6,10 @@
     padding: 5%;
 }
 .faq-section h2{
-    font-size: 3rem;
-    line-height: 3.5rem;
+    font-size: clamp(1.6rem, 2vw, 2rem);
     font-weight: 600;
+    color: var(--color-text-muted);
+    margin-bottom: 0.4rem;
 }
 .faq-section app-faq-item{
     border-bottom: 1px solid var(--tertiary-color);

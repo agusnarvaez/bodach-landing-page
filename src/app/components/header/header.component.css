@@ -109,10 +109,10 @@ ul li{
     position:relative;
     transition: all 0.3s ease-in-out;
 }
-ul li:hover{
+ul li:hover {
     transform: scale(1.1);
-    /* transition: all 0.3s ease-in-out; */
 }
+
 
 ul li a{
     text-decoration: none;
@@ -207,11 +207,21 @@ nav ul li a.active{
         align-items: center;
     }
 
+    ul li:hover {
+        transform: none;
+    }
+
     ul li a{
         font-size: 1.6rem;
         /* Was: #767676 — fails WCAG AA on light background; now uses token raised to #5a5a5a */
         color: var(--tertiary-color-darker);
         padding: 0%;
+        transition: color 0.2s ease, font-size 0.2s ease;
+    }
+
+    ul li a:hover {
+        font-size: 1.8rem;
+        color: var(--primary-color);
     }
 
     /* In desktop the nav is always visible — remove aria-hidden side effects */
